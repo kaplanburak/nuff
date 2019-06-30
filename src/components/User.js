@@ -1,36 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { getTopArtists } from '../actions';
 
 class User extends React.Component {
-    state = {
-        topArtists: []
-    };
-
     componentDidMount() {
-        const hash = window.location.hash
-            .substring(1)
-            .split('&')
-            .reduce((obj, str) => {
-                const keyVal = str.split('=');
-                obj[keyVal[0]] = keyVal[1];
-                return obj;
-            }, {});
-
-        console.log(hash);
-
-        fetch("https://api.spotify.com/v1/me/top/artists", {
-            headers: {
-                'authorization': `Bearer ${hash.access_token}`
-            }
-        }).then(res => res.json()).then(res => {
-            console.log(res);
-            this.setState({ topArtists: res.items.map(i => i.name) });
-        });
+        this.props.getTopArtists();
     }
 
     render() {
-        const { topArtists } = this.state;
-        if (topArtists.length) {
-            console.log(topArtists);
+        const { topArtists } = this.props;
+        if (topArtists && topArtists.length) {
             return (
                 <div>
                     Your top 20 artists:
@@ -45,4 +24,16 @@ class User extends React.Component {
     }
 }
 
-export default User;
+const mapStateToProps = state => {
+    return {
+        topArtists: state.user.topArtists
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getTopArtists: () => dispatch(getTopArtists())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);
