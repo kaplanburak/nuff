@@ -8,7 +8,6 @@ export const storeToken = token => (dispatch, getState) => {
 };
 
 export const getTopArtists = () => (dispatch, getState) => {
-    console.log('getTopArtists() token: ', getState().accessToken);
     fetch("https://api.spotify.com/v1/me/top/artists", {
         headers: {
             'authorization': `Bearer ${getState().accessToken}`

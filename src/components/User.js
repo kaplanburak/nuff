@@ -4,7 +4,8 @@ import { getTopArtists } from '../actions';
 
 class User extends React.Component {
     componentDidMount() {
-        this.props.getTopArtists();
+        const { getTopArtists } = this.props;
+        getTopArtists();
     }
 
     render() {
