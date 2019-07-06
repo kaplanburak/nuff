@@ -2,7 +2,7 @@ const clientID = '755c1bb41140468e9f503736710477bb';
 
 export const loginSpotify = () => {
     const authEndpoint = 'https://accounts.spotify.com/authorize';
-    const redirectUri = window.location.origin;
+    let redirectUri = window.location.origin + '/';
     const scopes = [
         'user-top-read'
     ];
