@@ -1,40 +1,45 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getTopArtists } from '../actions';
+import React from "react";
+import { connect } from "react-redux";
+import { getTopArtists } from "../actions";
 
 class User extends React.Component {
-    componentDidMount() {
-        const { getTopArtists } = this.props;
-        getTopArtists();
+  componentDidMount() {
+    const { getTopArtists } = this.props;
+    getTopArtists();
+  }
+
+  render() {
+    const { topArtists } = this.props;
+    if (topArtists && topArtists.length) {
+      return (
+        <div>
+          Your top 20 artists:
+          <ol>
+            {topArtists.map((artist, i) => (
+              <li key={i}>{artist}</li>
+            ))}
+          </ol>
+        </div>
+      );
     }
 
-    render() {
-        const { topArtists } = this.props;
-        if (topArtists && topArtists.length) {
-            return (
-                <div>
-                    Your top 20 artists:
-                    <ol>
-                        {topArtists.map(artist => <li>{artist}</li>)}
-                    </ol>
-                </div>
-            );
-        }
-
-        return null;
-    }
+    return null;
+  }
 }
 
 const mapStateToProps = state => {
-    return {
-        topArtists: state.user.topArtists
-    }
+  return {
+    topArtists: state.user.topArtists
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        getTopArtists: () => dispatch(getTopArtists())
-    };
+  return {
+    getTopArtists: () => dispatch(getTopArtists())
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(User);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(User);
