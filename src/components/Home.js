@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { storeToken } from "../actions";
-import { loginSpotify } from "../api/spotify";
+import { loginSpotify, connectWebPlayer } from "../api/spotify";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -17,12 +17,15 @@ class Home extends React.Component {
           return obj;
         }, {});
 
-      console.log(hash);
-
       if (parsed.access_token) {
         this.props.storeToken(parsed.access_token);
       }
     }
+  }
+
+  componentDidUpdate() {
+    const { token } = this.props;
+    if (token) connectWebPlayer(token);
   }
 
   render() {

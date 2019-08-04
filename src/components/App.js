@@ -4,6 +4,8 @@ import Home from "./Home";
 import User from "./User";
 import Player from "./Player";
 
+window.onSpotifyWebPlaybackSDKReady = () => {};
+
 const App = () => {
   return (
     <BrowserRouter>

@@ -11,6 +11,10 @@ class Player extends React.Component {
     this.props.getCurrentPlayback();
   }
 
+  componentDidUpdate() {
+    console.log("playback info: ", this.props.playback);
+  }
+
   render() {
     const { searchResult, search, playAlbum } = this.props;
     return (
@@ -49,7 +53,7 @@ class Player extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    playback: state.player.currentPlayback,
+    playback: state.player.playback,
     searchResult: state.player.searchResult
   };
 };
